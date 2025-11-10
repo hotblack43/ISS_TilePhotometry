@@ -1,0 +1,34 @@
+How to use astrometry and photometry codes in the PIPELINE directory
+====================================================================
+
+Peter Thejll, DMI November 2025
+
+1) Take rawcube as input, split into 9 tiles sum to white light image
+and fit WCS, return .new for each summed tile, and also splits each
+tile into R G1 G2 and B, adds WCS, writes all to a dir, e.g.:
+
+uv run iss_rawcube_tile_wcs_local_first.py ~/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162716_iss066e032138_c9cd3562_L1_rawcube.fits TESTOUT
+
+11 of those have been set up in
+./go.sh
+each writing to its own TESTOUT1 2 3 ... 11
+
+
+2) then search APASS for photometry
+
+iss_tilecube_photometry_apass.py
+
+using go2.sh
+
+3)
+
+Then merge their output catalogs
+
+go_merge_catalogs.sh
+
+
+4) Then plot the results
+
+plot_merged_averaged_catalogs.Rmd
+
+this may also be of interest: plot_results_from_tilesolver_1.Rmd

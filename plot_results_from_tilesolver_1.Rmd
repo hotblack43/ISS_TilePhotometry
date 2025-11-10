@@ -1,0 +1,35 @@
+---
+title: "R Notebook"
+output: 
+  pdf_document: 
+    fig_height: 7
+---
+
+ 
+```{r setup}
+rm(list=ls())
+setwd("/home/pth/WORKSHOP/ASTRO5/PLATESOLVER/PIPELINE/")
+infile <- "TESTOUT/20211031_162716_iss066e032138_c9cd3562_L1_rawcube_field_catalog.csv"
+infile <- "TESTOUT10/20211031_162732_iss066e032144_cc8b5ed1_L1_rawcube_field_catalog.csv"
+df <- read.csv(infile,sep=",",header=TRUE)
+df$mag_inst_Gavr <- (df$mag_inst_G1+df$mag_inst_G2)/2
+df_org <- df
+```
+
+# plots
+```{r}
+limV <- 10
+df <- df_org
+plot(df$mag_inst_G1,df$mag_inst_G2,pch="+")
+plot(df$mag_inst_G1,df$Vmag,pch="+")
+idx <- which(df$Vmag < limV)
+abline(h=limV,lty=2)
+df <- df[idx,]
+plot(df$mag_inst_G1,df$mag_inst_G2,pch="+")
+plot(df$mag_inst_G1,df$Vmag,pch="+")
+#
+plot(df$mag_inst_B-df$mag_inst_G1,df$Bmag-df$Vmag,pch="+")
+points(df$mag_inst_B[idx]-df$mag_inst_G1[idx],df$Bmag[idx]-df$Vmag[idx],pch=19,col='red')
+points(df$mag_inst_B-df$mag_inst_G1,df$Bmag-df$Vmag,pch="+")
+```
+

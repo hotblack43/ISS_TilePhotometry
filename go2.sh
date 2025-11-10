@@ -1,0 +1,11 @@
+uv run iss_tilecube_photometry_apass.py TESTOUT1 TESTOUT1 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT2 TESTOUT2 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT3 TESTOUT3 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT4 TESTOUT4 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT5 TESTOUT5 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT6 TESTOUT6 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT7 TESTOUT7 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT8 TESTOUT8 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT9 TESTOUT9 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT10 TESTOUT10 --maxrad 2.5 --match 60
+uv run iss_tilecube_photometry_apass.py TESTOUT11 TESTOUT11 --maxrad 2.5 --match 60

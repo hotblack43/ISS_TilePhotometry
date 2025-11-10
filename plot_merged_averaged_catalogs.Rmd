@@ -1,0 +1,125 @@
+---
+title: "Plot averaged catalogs - APASS"
+output: 
+  pdf_document: 
+    fig_height: 7
+---
+
+ 
+
+```{r setup}
+rm(list=ls())
+setwd("~/WORKSHOP/ASTRO5/PLATESOLVER/PIPELINE/")
+library(MASS)
+df <- read.csv("merged_field_catalog_averaged.csv",sep=",",header=TRUE)
+nreps <- 10
+Vmaglim <- 8.0
+idx <- which(df$n_obs > nreps)
+df <- df[idx,]
+df$G_mag_med_avr <- (df$G1_mag_med+df$G2_mag_med)/2 
+
+#
+
+df <- na.omit(df) 
+```
+
+# plots
+```{r}
+plot(df$B_mag_med,df$Bmag,main=paste0("Nr = ",nreps))
+plot(df$G_mag_med_avr,df$Vmag,main=paste0("Nr = ",nreps))
+abline(h=Vmaglim,col="red",lty=2)
+#
+idx <- which(df$Vmag <= Vmaglim) # highlight these points
+#df <- df[idx,]
+plot(df$B_mag_med-df$G_mag_med_avr,df$Bmag-df$Vmag,pch="+" ,main=paste0("Nr = ",nreps," for Vmag < ",Vmaglim),ylab="Johnson B-V",xlab="Machine mag Bayer B-G")
+points(df$B_mag_med[idx]-df$G_mag_med_avr[idx],df$Bmag[idx]-df$Vmag[idx],pch=19,col="blue" )
+ 
+
+# fit B-V vs B-G Bayer
+x <- df$B_mag_med[idx]-df$G_mag_med_avr[idx]
+y <- df$Bmag[idx]-df$Vmag[idx]
+fit <- rlm(y ~ x)
+lines(x, fit$fitted.values) 
+abline(c(0,1),col=2,lty=2)
+sdtxt <- sd(fit$residuals)
+legend('topleft',legend=paste('sd = ',round(sdtxt,3)))
+#----------------------------------------------------
+png(paste0("FIGURES/Johnson_vs_machine_",nreps,"_Vmaglim_",Vmaglim,".png"))
+plot(df$B_mag_med-df$G_mag_med_avr,df$Bmag-df$Vmag,pch="+" ,main=paste0("Nr = ",nreps," for Vmag < ",round(Vmaglim,2)),ylab="Johnson B-V",xlab="Machine mag Bayer B-G")
+points(df$B_mag_med[idx]-df$G_mag_med_avr[idx],df$Bmag[idx]-df$Vmag[idx],pch=19,col="blue" )
+ 
+
+# fit B-V vs B-G Bayer
+x <- df$B_mag_med[idx]-df$G_mag_med_avr[idx]
+y <- df$Bmag[idx]-df$Vmag[idx]
+fit <- rlm(y ~ x)
+lines(x, fit$fitted.values) 
+abline(c(0,1),col=2,lty=2)
+sdtxt <- sd(fit$residuals)
+legend('topleft',legend=paste('sd = ',round(sdtxt,3)))
+dev.off()
+```
+```{r}
+## --- Build x (machine colour) and y (catalogue colour) -----------------------
+x <- with(df[idx, ], B_mag_med - G_mag_med_avr)
+y <- with(df[idx, ], Bmag - Vmag)
+
+## Basic scatter (keep your existing plotting call if you prefer)
+plot(df$B_mag_med - df$G_mag_med_avr,
+     df$Bmag - df$Vmag,
+     pch = "+",
+     main = paste0("Nr = ", nreps, " for Vmag < ", Vmaglim),
+     ylab = "Johnson B−V",
+     xlab = "Machine mag (Bayer B−G)")
+points(x, y, pch = 19, col = "blue")
+
+## --- Fit ---------------------------------------------------------------------
+fit  <- lm(y ~ x)
+rmse <- sqrt(mean(residuals(fit)^2))
+sig  <- summary(fit)$sigma  # same as RMSE for OLS with intercept
+
+## --- Smooth x-grid for bands -------------------------------------------------
+xg <- seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = 400)
+nd <- data.frame(x = xg)
+
+## Confidence band (mean) and Prediction band (new obs)
+conf <- predict(fit, newdata = nd, interval = "confidence", level = 0.95)
+pred <- predict(fit, newdata = nd, interval = "prediction", level = 0.95)
+
+## --- Draw: bands first, then fit line ---------------------------------------
+# Confidence band (narrower)
+polygon(c(xg, rev(xg)),
+        c(conf[, "lwr"], rev(conf[, "upr"])),
+        border = NA, col = adjustcolor("deepskyblue", 0.20))
+
+# Prediction band (wider)
+polygon(c(xg, rev(xg)),
+        c(pred[, "lwr"], rev(pred[, "upr"])),
+        border = NA, col = adjustcolor("orange", 0.15))
+
+# Fitted line
+lines(xg, conf[, "fit"], lwd = 2)
+
+## --- Optional: show a simple ‘endpoints’ line (x1,y1/x2,y2) -----------------
+# x1 <- min(x, na.rm = TRUE); x2 <- max(x, na.rm = TRUE)
+# y1 <- predict(fit, data.frame(x = x1))
+# y2 <- predict(fit, data.frame(x = x2))
+# lines(c(x1, x2), c(y1, y2), lwd = 2, col = "black")
+
+## --- Legend with metrics -----------------------------------------------------
+leg <- bquote(italic(RMSE) == .(format(rmse, digits = 3)) ~ "," ~
+              sigma == .(format(sig, digits = 3)))
+legend("topleft",
+       legend = c(
+         paste0("fit:  B−V = ",
+                format(coef(fit)[1], digits = 3), " + ",
+                format(coef(fit)[2], digits = 3), "·(B−G)"),
+         "95% confidence (mean)", "95% prediction (new obs)", as.expression(leg)
+       ),
+       lwd = c(2, NA, NA, NA), pch = c(NA, 15, 15, NA),
+       pt.cex = c(NA, 2, 2, NA),
+       col = c("black", adjustcolor("deepskyblue", 0.20), adjustcolor("orange", 0.15), NA),
+       bty = "n")
+
+```
+

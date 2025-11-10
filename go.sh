@@ -1,0 +1,13 @@
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162708_iss066e032135_9fefc72e_L1_rawcube.fits TESTOUT1 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162710_iss066e032136_bae50d95_L1_rawcube.fits TESTOUT2 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162713_iss066e032137_ffbc767f_L1_rawcube.fits TESTOUT3 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162716_iss066e032138_c9cd3562_L1_rawcube.fits TESTOUT4 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162719_iss066e032139_abc44d6a_L1_rawcube.fits TESTOUT5 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162721_iss066e032140_5c2cc127_L1_rawcube.fits TESTOUT6 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162724_iss066e032141_f93536e5_L1_rawcube.fits TESTOUT7 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162727_iss066e032142_aa0b3966_L1_rawcube.fits TESTOUT8 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162730_iss066e032143_e79c197a_L1_rawcube.fits TESTOUT9 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162732_iss066e032144_cc8b5ed1_L1_rawcube.fits TESTOUT10 &
+uv run iss_rawcube_tile_wcs_local_first.py /home/pth/pCloudDrive/ACRYLIC/IMAGEFILES/ISS066E0321/20211031_162735_iss066e032145_fb5eccb3_L1_rawcube.fits TESTOUT11 &
+
+
