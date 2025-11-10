@@ -8,7 +8,8 @@ merging overlapping tile catalogues into a single per-field photometric
 dataset.
 
 The input data (the 'rawcube' files) are generated elsewhere. See
-code es_mvp_v0_9_12.py in earthshine_mvp_v0_3/ read the README there.
+code es_mvp_v0_9_12.py in earthshine_mvp_v0_3/ - read the README there.
+Or provide your own fits files.
 
 The system is designed for high-precision Earthshine photometry but
 may be useful for other applications involving 4-plane (R, G1, G2, B)
