@@ -6,7 +6,7 @@ es_mvp_v0_9_12
 
 Features (brief)
 
-Inputs: RAW files (.NEF .CR2 .CR3 .ARW .RAF .ORF .RW2, case-insensitive) and/or archives containing RAWs (.gz .tgz .tar.gz .tar). Archives are auto-extracted to EXTRACT/. 
+Inputs: RAW files (.NEF .CR2 .CR3 .ARW .RAF .ORF .RW2, case-insensitive) and/or archives containing RAWs (.gz .tgz .tar.gz .tar). Archives are auto-extracted to EXTRACT/.  Note that the high-efficiency HE* NEF files from Nikon Z9 camera cannot be archived with this software. Use of Adobe DNGConverter is required for that.
 
 es_mvp_v0_9_12
 
